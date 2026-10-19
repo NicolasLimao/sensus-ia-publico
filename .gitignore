@@ -1,0 +1,60 @@
+# Segredos / ambiente
+.env
+.env.*
+*.env
+
+# ...mas o exemplo (só nomes de variáveis, nenhum valor) é versionado
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv2/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Saída do harness de medição (respostas para leitura humana)
+api/evals/out/
+
+# Node (front-end)
+node_modules/
+dist/
+build/
+.next/
+.turbo/
+
+# Docs de processo internas (specs/planos de brainstorming)
+docs/superpowers/
+
+# SO / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Edição pública: dados de execução e materiais privados ficam locais.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.log
+private-data/
+local-data/
+uploads/
+exports/
+backups/
+.claude/
+.codex/
+.agents/
+.impeccable/

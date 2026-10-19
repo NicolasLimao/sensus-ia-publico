@@ -1,0 +1,61 @@
+# Perguntas SEM resposta no corpus. Este arquivo é o instrumento que mede alucinação:
+# a resposta certa para todas elas é a recusa.
+#
+# Duas famílias, medidas em SEPARADO — reportá-las juntas esconderia a primeira atrás
+# da segunda:
+#
+#   ausente_no_dominio — plausível sobre consumidor / dados / responsabilidade, mas a
+#     resposta não está nestas três leis. É o caso PERIGOSO: a busca traz trechos de
+#     score alto, sobre o tema certo, que não respondem a pergunta.
+#   fora_do_dominio    — sem relação nenhuma com o corpus. Caso fácil; serve de piso.
+#
+# Ao acrescentar pergunta: confirme que a resposta REALMENTE não está no corpus antes
+# de anotar. Uma pergunta respondível aqui conta recusa correta como erro e derruba a
+# métrica sem que nada esteja errado.
+#
+# Cada pergunta de ausente_no_dominio foi verificada por grep no corpus antes de entrar
+# aqui — termo por termo, trecho por trecho — e o resultado está registrado no
+# README.md desta pasta, seção "Como as perguntas sem resposta foram verificadas". Uma
+# pergunta trocada nessa verificação (sobre arrependimento em compra feita em loja
+# física) está documentada lá: o Art. 49 do CDC responde por exclusão ("fora do
+# estabelecimento comercial"), o que a desqualificava.
+
+# --- Ausente no domínio -----------------------------------------------------
+
+- pergunta: "Qual é a garantia legal para produtos usados comprados de pessoa física?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Quanto custa registrar uma reclamação no Procon?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Qual o prazo para o fornecedor responder a uma reclamação aberta no Procon?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "O CDC obriga o fornecedor a dar desconto para pagamento à vista, em dinheiro?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Empresa com menos de dez funcionários é obrigada a nomear encarregado de dados?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Qual o formato do relatório de impacto que a ANPD exige que seja enviado?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Em quantos dias a ANPD precisa responder a uma denúncia de titular?"
+  tipo: "ausente_no_dominio"
+
+- pergunta: "Qual a velocidade mínima de internet que o provedor é obrigado a entregar?"
+  tipo: "ausente_no_dominio"
+
+# --- Fora do domínio --------------------------------------------------------
+
+- pergunta: "Qual é a capital da Mongólia?"
+  tipo: "fora_do_dominio"
+
+- pergunta: "Como faço um risoto de funghi?"
+  tipo: "fora_do_dominio"
+
+- pergunta: "Quem ganhou a Copa do Mundo de 2002?"
+  tipo: "fora_do_dominio"
+
+- pergunta: "Qual a diferença entre uma lista e uma tupla em Python?"
+  tipo: "fora_do_dominio"

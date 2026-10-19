@@ -1,0 +1,133 @@
+# Dataset de recuperação. Cada entrada ancora num TRECHO DE TEXTO, nunca num id de
+# chunk: o id muda a cada mudança de chunking, o trecho não.
+#
+# Dois tipos de pergunta, misturados de propósito:
+#   1. literal      — usa as palavras do documento; exercita principalmente a perna lexical
+#   2. parafraseada — mesma resposta, outras palavras; exercita principalmente a semântica
+#
+# Uma medição que só usa perguntas literais esconde uma perna semântica quebrada, e
+# vice-versa. A proporção aqui é de cerca de metade para cada.
+#
+# Os três documentos falam de "prazo", "dados" e "responsabilidade". Isso é deliberado:
+# boa parte das perguntas só acerta se a recuperação escolher o DOCUMENTO certo, não só
+# o trecho com as palavras certas.
+#
+# NÃO HÁ perguntas sem resposta na base. O `load_dataset` exige `trecho_esperado`
+# preenchido, e `recall_at_k` contaria uma pergunta sem resposta como erro de
+# recuperação — o que rebaixaria a métrica sem que nada estivesse errado. Medir falso
+# positivo exige um campo e uma métrica próprios; está registrado como pendência no
+# README desta pasta.
+#
+# Toda âncora é verificada por `tests/rag/test_evals_dataset.py`: existe no documento e
+# cabe inteira num chunk. Sem isso, uma pergunta impossível de acertar rebaixaria a
+# linha de base em silêncio.
+
+# --- Código de Defesa do Consumidor -----------------------------------------
+
+- pergunta: "Em quantos dias o consumidor pode desistir de um contrato assinado fora do estabelecimento comercial?"
+  documento: "cdc.md"
+  trecho_esperado: "no prazo de 7 dias a contar de sua assinatura ou do ato de recebimento do produto ou serviço"
+
+- pergunta: "Comprei por telefone e me arrependi da compra. Tenho direito de cancelar?"
+  documento: "cdc.md"
+  trecho_esperado: "sempre que a contratação de fornecimento de produtos e serviços ocorrer fora do estabelecimento comercial"
+
+- pergunta: "Qual o prazo para reclamar de vício aparente em produto durável?"
+  documento: "cdc.md"
+  trecho_esperado: "noventa dias, tratando-se de fornecimento de serviço e de produtos duráveis"
+
+- pergunta: "Qual o prazo para reclamar de vício aparente em produto não durável?"
+  documento: "cdc.md"
+  trecho_esperado: "trinta dias, tratando-se de fornecimento de serviço e de produtos não duráveis"
+
+- pergunta: "Quanto tempo a loja tem para consertar um produto com defeito antes de eu poder exigir outra coisa?"
+  documento: "cdc.md"
+  trecho_esperado: "Não sendo o vício sanado no prazo máximo de trinta dias"
+
+- pergunta: "O juiz pode determinar que seja a empresa a provar os fatos, e não o cliente?"
+  documento: "cdc.md"
+  trecho_esperado: "a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação"
+
+- pergunta: "Quem é considerado consumidor segundo o código?"
+  documento: "cdc.md"
+  trecho_esperado: "Consumidor é toda pessoa física ou jurídica que adquire ou utiliza produto ou serviço como destinatário final"
+
+- pergunta: "A empresa pode expor ou ameaçar quem está devendo na hora da cobrança?"
+  documento: "cdc.md"
+  trecho_esperado: "o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça"
+
+- pergunta: "Qual a definição de fornecedor?"
+  documento: "cdc.md"
+  trecho_esperado: "Fornecedor é toda pessoa física ou jurídica, pública ou privada, nacional ou estrangeira"
+
+- pergunta: "Serviço prestado por banco está sujeito às regras de consumo?"
+  documento: "cdc.md"
+  trecho_esperado: "inclusive as de natureza bancária, financeira, de crédito e securitária"
+
+# --- Lei Geral de Proteção de Dados -----------------------------------------
+
+- pergunta: "Qual o teto em reais da multa simples prevista na lei de proteção de dados?"
+  documento: "lgpd.md"
+  trecho_esperado: "limitada, no total, a R$ 50.000.000,00 (cinquenta milhões de reais) por infração"
+
+- pergunta: "Quanto uma empresa pode ser penalizada em percentual do que fatura?"
+  documento: "lgpd.md"
+  trecho_esperado: "multa simples, de até 2% (dois por cento) do faturamento da pessoa jurídica de direito privado"
+
+- pergunta: "O que é dado pessoal sensível?"
+  documento: "lgpd.md"
+  trecho_esperado: "dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato"
+
+- pergunta: "Informação sobre a saúde de uma pessoa recebe proteção diferenciada?"
+  documento: "lgpd.md"
+  trecho_esperado: "dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural"
+
+- pergunta: "O que o controlador deve fazer quando ocorre um incidente de segurança?"
+  documento: "lgpd.md"
+  trecho_esperado: "comunicar à autoridade nacional e ao titular a ocorrência de incidente de segurança"
+
+- pergunta: "Um vazamento de informações precisa ser avisado a alguém?"
+  documento: "lgpd.md"
+  trecho_esperado: "incidente de segurança que possa acarretar risco ou dano relevante aos titulares"
+
+- pergunta: "O controlador é obrigado a indicar um encarregado pelo tratamento de dados pessoais?"
+  documento: "lgpd.md"
+  trecho_esperado: "O controlador deverá indicar encarregado pelo tratamento de dados pessoais"
+
+- pergunta: "A empresa precisa ter alguém responsável por cuidar das informações dos clientes?"
+  documento: "lgpd.md"
+  trecho_esperado: "deverá indicar encarregado pelo tratamento de dados pessoais"
+
+- pergunta: "Quais direitos o titular pode exercer perante o controlador?"
+  documento: "lgpd.md"
+  trecho_esperado: "O titular dos dados pessoais tem direito a obter do controlador, em relação aos dados do titular por ele tratados"
+
+- pergunta: "Depois de eu autorizar o uso das minhas informações, posso voltar atrás?"
+  documento: "lgpd.md"
+  trecho_esperado: "revogação do consentimento, nos termos do § 5º do art. 8º desta Lei"
+
+# --- Marco Civil da Internet ------------------------------------------------
+
+- pergunta: "Por quanto tempo devem ser guardados os registros de conexão?"
+  documento: "marcocivil.md"
+  trecho_esperado: "manter os registros de conexão, sob sigilo, em ambiente controlado e de segurança, pelo prazo de 1 (um) ano"
+
+- pergunta: "Qual o prazo de guarda dos registros de acesso a aplicações de internet?"
+  documento: "marcocivil.md"
+  trecho_esperado: "registros de acesso a aplicações de internet, sob sigilo, em ambiente controlado e de segurança, pelo prazo de 6 (seis) meses"
+
+- pergunta: "Um site responde judicialmente pelo que um usuário publicou nele?"
+  documento: "marcocivil.md"
+  trecho_esperado: "somente poderá ser responsabilizado civilmente por danos decorrentes de conteúdo gerado por terceiros se, após ordem judicial específica"
+
+- pergunta: "A operadora precisa tratar todo tráfego igual, sem privilegiar um serviço?"
+  documento: "marcocivil.md"
+  trecho_esperado: "o dever de tratar de forma isonômica quaisquer pacotes de dados, sem distinção por conteúdo, origem e destino"
+
+- pergunta: "Publicaram imagem íntima minha sem autorização. O provedor tem que retirar do ar?"
+  documento: "marcocivil.md"
+  trecho_esperado: "cenas de nudez ou de atos sexuais de caráter privado quando, após o recebimento de notificação pelo participante"
+
+- pergunta: "Que garantia o usuário de internet tem sobre a própria intimidade?"
+  documento: "marcocivil.md"
+  trecho_esperado: "inviolabilidade da intimidade e da vida privada, sua proteção e indenização pelo dano material ou moral"

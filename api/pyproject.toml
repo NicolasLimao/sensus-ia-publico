@@ -1,0 +1,65 @@
+[project]
+name = "sensus-api"
+version = "0.1.0"
+description = "Adaptador FastAPI do Sensus IA"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.141.1",
+    "httpx>=0.28.1",
+    "itsdangerous>=2.2.0",
+    "pgvector>=0.4.1",
+    "psycopg[binary,pool]>=3.2.12",
+    "pydantic-settings>=2.15.0",
+    "pypdf>=6.19.0,<7",
+    "pyyaml>=6.0.3",
+    "python-multipart>=0.0.20",
+    "uvicorn[standard]>=0.52.4",
+    "argon2-cffi>=25.1.0",
+    "pydantic[email]>=2.13.5",
+    "aiosmtplib>=5.1.3",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "reportlab>=4.4.4",
+    "ruff>=0.16.5",
+    "types-pyyaml>=6.0.12",
+    "types-reportlab>=4.4.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sensus_api", "src/sensus_rag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+pythonpath = ["src"]
+markers = [
+  "contract: roda contra provedor externo real; chave e modelo vêm das settings (api/.env ou ambiente), por fixture",
+  "integration: roda contra o Supabase real; exige SENSUS_DATABASE_URL",
+]
+addopts = "-m 'not contract and not integration'"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.lint.flake8-bugbear]
+# `Depends(...)` já é reconhecido por padrão; `File(...)` no mesmo padrão FastAPI não é.
+extend-immutable-calls = ["fastapi.File"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+files = ["src", "tests"]
+mypy_path = "src"
